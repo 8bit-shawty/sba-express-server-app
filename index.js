@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3000;
 
 //routers
 const usersRouter = require("./routes/users.js")
+const tweetsRouter = require('./routes/tweets.js')
 
 const error = require('./utilities/error.js')
 console.log(typeof error)
@@ -33,6 +34,7 @@ ${time.toLocaleTimeString()}: Received a ${req.method} request to ${req.url}.`
 });
 
 app.use("/users", usersRouter)
+app.use('/tweets', tweetsRouter)
 
 
 
