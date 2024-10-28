@@ -1,4 +1,4 @@
-const posts = [
+const tweets = [
     {
         id: 1,
         userId: 1,
@@ -55,4 +55,4 @@ const posts = [
     },
 ];
 
-module.exports = posts;
+module.exports = tweets;
