@@ -3,7 +3,11 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+//routers
+const usersRouter = require("./routes/users.js")
+
 const error = require('./utilities/error.js')
+console.log(typeof error)
 
 
 
@@ -28,6 +32,8 @@ ${time.toLocaleTimeString()}: Received a ${req.method} request to ${req.url}.`
   next();
 });
 
+app.use("/users", usersRouter)
+
 
 
 app.get("/", (req, res) => {
@@ -35,17 +41,17 @@ app.get("/", (req, res) => {
 })
 
 // 404 Error Handling Middleware
-app.use((req, res, next) => {
-  next(error(404, "Resource Not Found"));
-});
+// app.use((req, res, next) => {
+//   next(error(404, "Resource Not Found"));
+// });
 
-// Custom 404 (not found) middleware.
-// Since we place this last, it will only process
-// tesif no other rou have already sent a response!
-app.use((err, req, res, next) => {
-  res.status(err.status || 500);
-  res.json({ error: err.message });
-});
+// // Custom 404 (not found) middleware.
+// // Since we place this last, it will only process
+// // tesif no other rou have already sent a response!
+// app.use((err, req, res, next) => {
+//   res.status(err.status || 500);
+//   res.json({ error: err.message });
+// });
 
 
 app.listen(PORT, () => {
