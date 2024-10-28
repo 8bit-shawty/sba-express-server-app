@@ -38,6 +38,31 @@ app.use("/users", usersRouter)
 app.use('/tweets', tweetsRouter)
 app.use('/tweets', commentsRouter)
 
+//ENGINE
+// serve static files from the styles directory
+app.use(express.static("./styles"));
+
+// require the filesystem module
+const fs = require("fs");
+// define the template engine
+app.engine("users", (filePath, options, callback) => {
+  fs.readFile(filePath, (err, content) => {
+    if (err) return callback(err);
+
+    // Here, we take the content of the template file,
+    // convert it to a string, and replace sections of
+    // it with the values being passed to the engine.
+    const rendered = content
+      .toString()
+      .replaceAll("#title#", `${options.title}`)
+      .replace("#content#", `${options.content}`);
+    return callback(null, rendered);
+  });
+});
+
+app.set("views", "./views"); // specify the views directory
+app.set("view engine", "users"); // register the template engine
+
 // New User form
 app.get("/users/new", (req, res) => {
     // only works for GET and POST request be default

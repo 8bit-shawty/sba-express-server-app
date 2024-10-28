@@ -5,7 +5,20 @@ const error = require("../utilities/error.js")
 
 //GET ALL
 router.get('/', (req, res) => {
-    res.json({ users });
+    // res.json({ users });
+    const userTemplate = users.map(u => 
+        `
+        <tr>
+        <td>${u.id}</td>
+        <td>${u.name}</td>
+        </tr>
+        `
+    ).join('')
+
+    res.render('template.users', {
+        title: 'Here is a list of all the users',
+        content: userTemplate
+    })
 })
 
 //GET ONE
